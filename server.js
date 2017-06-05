@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/homeworkweek18");
+mongoose.connect("mongodb://heroku_b5dn6hht:s0j6hc6nvhkqkidneii5per7rp@ds157621.mlab.com:57621/heroku_b5dn6hht");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -105,6 +105,33 @@ app.post("/articles/:id", function(req, res) {
     else {
       // Use the article id to find and update it's note
       Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
+      // Execute the above query
+      .exec(function(err, doc) {
+        // Log any errors
+        if (err) {
+          console.log(err);
+        }
+        else {
+          // Or send the document to the browser
+          res.send(doc);
+        }
+      });
+    }
+  });
+});
+app.post("/articles/:id", function(req, res) {
+  // Create a new note and pass the req.body to the entry
+  var newSave = new Note(req.body);
+  // And save the new note the db
+  newSave.save(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise
+    else {
+      // Use the article id to find and update it's note
+      Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
       // Execute the above query
       .exec(function(err, doc) {
         // Log any errors
