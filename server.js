@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 // Database configuration with mongoose
-mongoose.connect("mongodb://heroku_b5dn6hht:s0j6hc6nvhkqkidneii5per7rp@ds157621.mlab.com:57621/heroku_b5dn6hht");
+mongoose.connect("mongodb://localhost/homeworkweek18");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -121,8 +121,7 @@ app.post("/articles/:id", function(req, res) {
 });
 app.post("/articles/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
-  var newSave = new Note(req.body);
-  // And save the new note the db
+  var newSave = new saved(true)
   newSave.save(function(error, doc) {
     // Log any errors
     if (error) {

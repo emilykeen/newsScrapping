@@ -3,7 +3,7 @@ $.getJSON("/articles", function(data) {
     // For each one
     for (var i = 0; i < data.length; i++) {
         // Display the apropos information on the page
-        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br /> <button data-id='" + data[i]._id+ " id ='button'>Save</button> </p>");
+        $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br /> <button data-id='" + data[i]._id+ "'id ='button'>Save</button> </p>");
     }
 });
 // Whenever someone clicks a p tag
@@ -69,7 +69,7 @@ $(document).on("click", "#button", function() {
     $.ajax({
         method: "POST",
         url: "/articles/" + thisId,
-        saved: true
+        data: {saved: true}
     })
 
     .done(function(data) {
