@@ -59,7 +59,7 @@ app.get("/scrape", function(req, res) {
   res.send("Scrape Complete");
 });
 
-app.get("/articles", function(req, res) {
+app.get("/", function(req, res) {
   // Grab every doc in the Articles array
   Article.find({}, function(error, doc) {
     // Log any errors
@@ -118,6 +118,7 @@ app.post("/articles/:id", function(req, res) {
     }
   });
 });
+
 // Listen on port 3000
 app.listen(3000, function() {
   console.log("App running on port 3000!");
