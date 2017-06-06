@@ -28,7 +28,7 @@ db.once("open", function() {
 });
 // Routes
 
-app.get("/scrape", function(req, res) {
+app.get("/", function(req, res) {
   // grab the body of the html with request
   request("http://thecitizen.com/", function(error, response, html) {
     // load cheerio 
