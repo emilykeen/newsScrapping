@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 // Database configuration with mongoose
-mongoose.connect("mongodb://heroku_b5dn6hht:s0j6hc6nvhkqkidneii5per7rp@ds157621.mlab.com:57621/heroku_b5dn6hht");
+mongoose.connect("mongodb://localhost/homeworkweek18");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -28,7 +28,7 @@ db.once("open", function() {
 });
 // Routes
 
-app.get("/", function(req, res) {
+app.get("/scrape", function(req, res) {
   // grab the body of the html with request
   request("http://thecitizen.com/", function(error, response, html) {
     // load cheerio 
@@ -59,7 +59,7 @@ app.get("/", function(req, res) {
   res.send("Scrape Complete");
 });
 
-app.get("/", function(req, res) {
+app.get("/articles", function(req, res) {
   // Grab every doc in the Articles array
   Article.find({}, function(error, doc) {
     // Log any errors
@@ -120,6 +120,6 @@ app.post("/articles/:id", function(req, res) {
 });
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(443, function() {
   console.log("App running on port 3000!");
 });
