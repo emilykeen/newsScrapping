@@ -7,6 +7,7 @@ var Article = require("./models/Article.js");
 // scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
+var PORT = process.env.PORT || 8080;
 
 mongoose.Promise = Promise;
 var app = express();
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/homeworkweek18");
+mongoose.connect("mongodb://heroku_b5dn6hht:s0j6hc6nvhkqkidneii5per7rp@ds157621.mlab.com:57621/heroku_b5dn6hht");
 var db = mongoose.connection;
 
 db.on("error", function(error) {
@@ -120,6 +121,6 @@ app.post("/articles/:id", function(req, res) {
 });
 
 // Listen on port 3000
-app.listen(443, function() {
+app.listen(PORT, function() {
   console.log("App running on port 3000!");
 });
